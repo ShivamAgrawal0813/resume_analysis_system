@@ -1,0 +1,53 @@
+John Doe
+johndoe@email.com
+(123) 456-7890
+
+OBJECTIVE
+Experienced software developer with a strong background in web application development seeking a challenging position that allows me to leverage my skills in Python, JavaScript, and cloud technologies.
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology | May 2020
+GPA: 3.8/4.0
+
+SKILLS
+Programming Languages: Python, JavaScript, Java, C++, SQL
+Web Technologies: HTML, CSS, React, Angular, Node.js, Flask, Django
+Cloud Services: AWS (EC2, S3, Lambda), Google Cloud Platform
+Database: MongoDB, MySQL, PostgreSQL
+Tools: Git, Docker, Kubernetes, Jenkins, JIRA
+Concepts: Microservices, RESTful APIs, Agile/Scrum, CI/CD
+
+EXPERIENCE
+Senior Software Developer | Tech Solutions Inc.
+June 2020 - Present
+- Developed and maintained RESTful APIs using Python Flask, serving over 10,000 daily users
+- Implemented microservices architecture, improving system scalability by 40%
+- Led a team of 5 developers in redesigning the company's web application using React
+- Integrated AWS services (S3, EC2, Lambda) to optimize cloud infrastructure and reduce costs by 25%
+- Implemented CI/CD pipeline with Jenkins, reducing deployment time by 60%
+
+Software Engineering Intern | InnovateTech
+May 2019 - August 2019
+- Developed features for a customer-facing web application using Angular and Node.js
+- Created automated test scripts that improved code coverage by 30%
+- Participated in daily Scrum meetings and contributed to sprint planning
+
+PROJECTS
+E-commerce Platform (2020)
+- Built a full-stack e-commerce application using MERN stack (MongoDB, Express, React, Node.js)
+- Implemented secure payment processing with Stripe API
+- Deployed on AWS with containerization using Docker
+
+Smart Home Automation System (2019)
+- Developed IoT-based home automation system using Python, Raspberry Pi, and MQTT protocol
+- Created a mobile app interface with React Native for controlling smart devices
+- Implemented machine learning algorithms for energy optimization
+
+CERTIFICATIONS
+- AWS Certified Developer – Associate (2021)
+- Google Cloud Professional Developer (2022)
+- MongoDB Certified Developer (2020)
+
+LANGUAGES
+English (Native), Spanish (Intermediate) 

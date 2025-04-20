@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analysis System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #e8f4f8;
+            color: #333;
+        }
+        .error {
+            background-color: #ffecec;
+            color: #721c24;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="file"] {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result-section {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .skill-tag {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        .job-matches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .job-match {
+            width: calc(50% - 10px);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .job-header h3 {
+            margin: 0;
+        }
+        .match-score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .score-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            background-color: #4CAF50;
+            margin-bottom: 5px;
+            border: 3px solid #e0e0e0;
+        }
+        .match-score span {
+            font-size: 12px;
+        }
+        .job-details {
+            margin-top: 10px;
+        }
+        .match-breakdown {
+            margin-top: 10px;
+        }
+        .matching-skills {
+            margin-top: 10px;
+        }
+        .skill-tag.skill-match {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Resume Analysis System</h1>
+    <div class="container">
+        {% if message %}
+        <div class="message {% if error %}error{% endif %}">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <form action="/pred" method="post" enctype="multipart/form-data">
+            <label for="resume">Upload Resume (PDF or TXT):</label>
+            <input type="file" id="resume" name="resume" accept=".pdf,.txt" required>
+            <button type="submit">Analyze Resume</button>
+        </form>
+
+        {% if predicted_category %}
+        <div class="result-section">
+            <div class="section-title">Resume Category:</div>
+            <p>{{ predicted_category }}</p>
+        </div>
+        {% endif %}
+
+        {% if recommended_job %}
+        <div class="result-section">
+            <div class="section-title">Recommended Job:</div>
+            <p>{{ recommended_job }}</p>
+        </div>
+        {% endif %}
+
+        {% if name %}
+        <div class="result-section">
+            <div class="section-title">Name:</div>
+            <p>{{ name }}</p>
+        </div>
+        {% endif %}
+
+        {% if phone %}
+        <div class="result-section">
+            <div class="section-title">Contact Number:</div>
+            <p>{{ phone }}</p>
+        </div>
+        {% endif %}
+
+        {% if email %}
+        <div class="result-section">
+            <div class="section-title">Email:</div>
+            <p>{{ email }}</p>
+        </div>
+        {% endif %}
+
+        {% if skills %}
+        <div class="result-section">
+            <div class="section-title">Skills:</div>
+            <div class="skill-tags">
+                {% for skill in skills %}
+                <span class="skill-tag">{{ skill }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if education %}
+        <div class="result-section">
+            <div class="section-title">Education:</div>
+            <ul>
+                {% for edu in education %}
+                <li>{{ edu }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if job_matches %}
+        <div class="result-section">
+            <div class="section-title">Job Matches:</div>
+            <div class="job-matches">
+                {% for job in job_matches %}
+                <div class="job-match">
+                    <div class="job-header">
+                        <h3>{{ job.job_title }} at {{ job.company }}</h3>
+                        <div class="match-score">
+                            <div class="score-circle">
+                                {{ job.match_score }}%
+                            </div>
+                            <span>Match Score</span>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <p><strong>Location:</strong> {{ job.location }}</p>
+                        <div class="match-breakdown">
+                            <h4>Match Breakdown:</h4>
+                            <ul>
+                                <li>Skills: {{ job.match_details.skill_score }}/50 ({{ job.match_details.matching_skills|length }} matching skills)</li>
+                                <li>Education: {{ job.match_details.education_score }}/20</li>
+                                <li>Description match: {{ job.match_details.description_score }}/30</li>
+                            </ul>
+                        </div>
+                        {% if job.match_details.matching_skills %}
+                        <div class="matching-skills">
+                            <h4>Matching Skills:</h4>
+                            <div class="skill-tags">
+                                {% for skill in job.match_details.matching_skills %}
+                                <span class="skill-tag skill-match">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html> 
